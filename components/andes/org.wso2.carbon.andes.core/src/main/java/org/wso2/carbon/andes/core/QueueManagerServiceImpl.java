@@ -260,6 +260,30 @@ public class QueueManagerServiceImpl implements QueueManagerService {
         }
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteNonDurableTopicSubscriptionFromRegistry(String topicName, String temporaryQueueName)
+            throws QueueManagerException {
+        try {
+            UserRegistry userRegistry = Utils.getUserRegistry();
+
+            String subscriptionResourcePath = QueueManagementConstants.MB_TOPIC_STORAGE_PATH
+                    + topicName + QueueManagementConstants.REGISTRY_PATH_SEPARATOR
+                    + QueueManagementConstants.MB_TOPIC_SUBSCRIPTIONS_PATH_IDENTIFIER
+                    + QueueManagementConstants.REGISTRY_PATH_SEPARATOR
+                    + temporaryQueueName;
+            userRegistry.delete(subscriptionResourcePath);
+
+        } catch (RegistryException e) {
+            String message = e.getMessage();
+            throw new QueueManagerException("Failed to delete non durable topic subscription: " + temporaryQueueName
+                    + " from registry " + message, e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */

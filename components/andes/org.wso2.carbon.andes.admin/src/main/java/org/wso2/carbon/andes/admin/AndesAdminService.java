@@ -270,6 +270,27 @@ public class AndesAdminService extends AbstractAdmin {
     }
 
     /**
+     * Delete non durable topic subscription entry from registry
+     *
+     * @param topicName          name of the topic
+     * @param temporaryQueueName name of temporary queue
+     *                           corresponding to subscription or identifier
+     * @throws BrokerManagerAdminException in case of an issue deleting the entry from registry
+     */
+    public void deleteNonDurableTopicSubscriptionFromRegistry(String topicName, String temporaryQueueName)
+            throws BrokerManagerAdminException {
+        try {
+            QueueManagerService queueManagerService =
+                    AndesBrokerManagerAdminServiceDSHolder.getInstance().getQueueManagerService();
+            queueManagerService.deleteNonDurableTopicSubscriptionFromRegistry(topicName, temporaryQueueName);
+        } catch (QueueManagerException e) {
+            String errorMessage = e.getMessage();
+            log.error(errorMessage, e);
+            throw new BrokerManagerAdminException(errorMessage, e);
+        }
+    }
+
+    /**
      * Restore messages from the Dead Letter Queue to their original queues.
      *
      * @param messageIDs          Browser Message Id / External Message Id list.

@@ -116,6 +116,9 @@
         <operation name="deleteTopicFromRegistry">
             <parameter name="AuthorizationAction" locked="false">/permission/admin/manage/topic/delete</parameter>
         </operation>
+        <operation name="deleteNonDurableTopicSubscriptionFromRegistry">
+            <parameter name="AuthorizationAction" locked="false">/permission/admin/manage/subscriptions/queue-close,/permission/admin/manage/subscriptions/topic-close</parameter>
+        </operation>
         <operation name="restoreMessagesFromDeadLetterQueue">
             <parameter name="AuthorizationAction" locked="false">/permission/admin/manage/dlc/restore</parameter>
         </operation>

@@ -86,6 +86,16 @@ public interface QueueManagerService {
     public void deleteTopicFromRegistry(String topicName, String subscriptionId) throws QueueManagerException;
 
     /**
+     * Delete non durable topic subscription entry from registry
+     *
+     * @param topicName          name of the topic
+     * @param temporaryQueueName temporary queue name of the subscription or identifier
+     * @throws QueueManagerException in case of an issue deleting the subscription entry
+     */
+    void deleteNonDurableTopicSubscriptionFromRegistry(String topicName, String temporaryQueueName)
+            throws QueueManagerException;
+
+    /**
      * Restore messages from the Dead Letter Queue to their original queues.
      *
      * @param messageIDs          Browser Message Id / External Message Id list

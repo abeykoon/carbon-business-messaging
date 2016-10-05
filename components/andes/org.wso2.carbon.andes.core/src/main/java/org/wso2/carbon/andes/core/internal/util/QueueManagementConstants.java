@@ -24,4 +24,7 @@ public class QueueManagementConstants {
     public static final String BROKER_SUBSCRIPTION_ATTRIBUTE = "AllSubscriptionInformation";
     public static final String QPID_VHOST_NAME = "carbon";
     public static final String MB_QUEUE_STORAGE_PATH = "event/queues/jms";
+    public static final String MB_TOPIC_STORAGE_PATH = "event/topics/";
+    public static final String MB_TOPIC_SUBSCRIPTIONS_PATH_IDENTIFIER = "jms.subscriptions";
+    public static final String REGISTRY_PATH_SEPARATOR = "/";
 }
