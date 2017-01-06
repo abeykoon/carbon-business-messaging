@@ -200,4 +200,27 @@ public class ClusterManagementBeans {
             throw new ClusterMgtException("Cannot get message store health.", e);
         }
     }
+
+    public String getOwningNodeOfQueue(String queueName, String protocol) throws ClusterMgtException {
+        String owningNodeForQueue = "";
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        try {
+            ObjectName objectName =
+                    new ObjectName("org.wso2.andes:type=ClusterManagementInformation," +
+                            "name=ClusterManagementInformation");
+            Object[] parameters = new Object[]{queueName, protocol};
+            String[] signature = new String[]{String.class.getName()};
+            Object result = mBeanServer.invoke(objectName, ClusterMgtConstants.OWNING_NODE_FOR_QUEUE,parameters,
+                    signature);
+
+            if (result != null) {
+                owningNodeForQueue = (String) result;
+            }
+            return owningNodeForQueue;
+
+        } catch (MalformedObjectNameException | InstanceNotFoundException
+                | ReflectionException| MBeanException e) {
+            throw new ClusterMgtException("Cannot access cluster information", e);
+        }
+    }
 }

@@ -77,4 +77,19 @@ public class ClusterManagerService extends AbstractAdmin {
         ClusterManagementBeans clusterManagementBeans = new ClusterManagementBeans();
         return clusterManagementBeans.getStoreHealth();
     }
+
+    /**
+     * Get the <Hostname>:<amqp_port> of node given queue is owned. This node handles all subscriptions
+     * for the given queue. If queue is not assigned still, this call assigns a node for the queue and
+     * return information.
+     *
+     * @param queueName name of queue
+     * @param protocol protocol dealt with. Ports will be returned considering this
+     * @return <Hostname>:<amqp_port> of assigned node
+     * @throws ClusterMgtException exception on internal error
+     */
+    public String getOwningNodeOfQueue(String queueName, String protocol)  throws ClusterMgtException {
+        ClusterManagementBeans clusterManagementBeans = new ClusterManagementBeans();
+        return clusterManagementBeans.getOwningNodeOfQueue(queueName, protocol);
+    }
 }

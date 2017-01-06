@@ -46,4 +46,9 @@ public class ClusterMgtConstants {
      * Attribute name for 'StoreHealth'
      */
     public static final String STORE_HEALTH = "StoreHealth";
+
+    /**
+     * Operation name for getting owning node for a queue
+     */
+    public static final String OWNING_NODE_FOR_QUEUE = "getOwningNodeOfQueue";
 }
