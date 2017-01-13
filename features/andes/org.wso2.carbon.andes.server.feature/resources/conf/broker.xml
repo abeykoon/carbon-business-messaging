@@ -202,6 +202,10 @@ This file is ciphertool compliant. Refer PRODUCT_HOME/repository/conf/security/c
     -->
     <persistence>
 
+        <inMemory>
+            <enabled>true</enabled>
+        </inMemory>
+
         <!-- RDBMS MB Store Configuration -->
 
         <messageStore class="org.wso2.andes.store.rdbms.RDBMSMessageStoreImpl">
