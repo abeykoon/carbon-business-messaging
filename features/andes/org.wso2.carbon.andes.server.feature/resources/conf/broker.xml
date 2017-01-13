@@ -203,7 +203,7 @@ This file is ciphertool compliant. Refer PRODUCT_HOME/repository/conf/security/c
     <persistence>
 
         <inMemory>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
         </inMemory>
 
         <!-- RDBMS MB Store Configuration -->
