@@ -209,7 +209,7 @@ public class ClusterManagementBeans {
                     new ObjectName("org.wso2.andes:type=ClusterManagementInformation," +
                             "name=ClusterManagementInformation");
             Object[] parameters = new Object[]{queueName, protocol};
-            String[] signature = new String[]{String.class.getName()};
+            String[] signature = new String[]{String.class.getName(),String.class.getName()};
             Object result = mBeanServer.invoke(objectName, ClusterMgtConstants.OWNING_NODE_FOR_QUEUE,parameters,
                     signature);
 
