@@ -26,7 +26,7 @@
                 <xs:sequence>
                     <xs:element minOccurs="0" name="createdFrom" nillable="true" type="xs:string"/>
                     <xs:element minOccurs="0" name="createdTime" nillable="true" type="xs:dateTime"/>
-                    <xs:element minOccurs="0" name="messageCount" type="xs:long"/>
+                    <xs:element minOccurs="0" name="pendingMessageCount" type="xs:long"/>
                     <xs:element minOccurs="0" name="queueDepth" type="xs:long"/>
                     <xs:element minOccurs="0" name="queueName" nillable="true" type="xs:string"/>
                     <xs:element minOccurs="0" name="updatedTime" nillable="true" type="xs:dateTime"/>

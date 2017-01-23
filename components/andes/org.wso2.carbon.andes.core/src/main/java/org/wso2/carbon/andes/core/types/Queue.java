@@ -23,9 +23,15 @@ public class Queue {
 
     private String queueName;
 
+    private String queueOwningNode;
+
     private long queueDepth;
 
-    private long messageCount;
+    private long pendingMessageCount;
+
+    private long totalReceivedMessageCount;
+
+    private long totalAckedMessageCount;
 
     private Calendar createdTime;
 
@@ -45,6 +51,30 @@ public class Queue {
         return queueName;
     }
 
+    public String getQueueOwningNode() {
+        return queueOwningNode;
+    }
+
+    public void setQueueOwningNode(String queueOwningNode) {
+        this.queueOwningNode = queueOwningNode;
+    }
+
+    public long getTotalReceivedMessageCount() {
+        return totalReceivedMessageCount;
+    }
+
+    public void setTotalReceivedMessageCount(long totalReceivedMessageCount) {
+        this.totalReceivedMessageCount = totalReceivedMessageCount;
+    }
+
+    public long getTotalAckedMessageCount() {
+        return totalAckedMessageCount;
+    }
+
+    public void setTotalAckedMessageCount(long totalAckedMessageCount) {
+        this.totalAckedMessageCount = totalAckedMessageCount;
+    }
+
     public void setQueueName(String queueName) {
         this.queueName = queueName;
     }
@@ -57,12 +87,12 @@ public class Queue {
         this.queueDepth = queueDepth;
     }
 
-    public long getMessageCount() {
-        return messageCount;
+    public long getPendingMessageCount() {
+        return pendingMessageCount;
     }
 
-    public void setMessageCount(long messageCount) {
-        this.messageCount = messageCount;
+    public void setPendingMessageCount(long pendingMessageCount) {
+        this.pendingMessageCount = pendingMessageCount;
     }
 
     public Calendar getCreatedTime() {

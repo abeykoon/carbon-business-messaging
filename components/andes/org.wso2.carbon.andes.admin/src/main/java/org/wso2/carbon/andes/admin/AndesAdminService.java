@@ -161,8 +161,7 @@ public class AndesAdminService extends AbstractAdmin {
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     public org.wso2.carbon.andes.admin.internal.Queue[] getAllQueues()
             throws BrokerManagerAdminException {
-        List<org.wso2.carbon.andes.admin.internal.Queue> allQueues
-                = new ArrayList<org.wso2.carbon.andes.admin.internal.Queue>();
+        List<org.wso2.carbon.andes.admin.internal.Queue> allQueues = new ArrayList<>();
         org.wso2.carbon.andes.admin.internal.Queue[] queuesDTO;
         try {
             QueueManagerService queueManagerService =
@@ -173,7 +172,10 @@ public class AndesAdminService extends AbstractAdmin {
                 org.wso2.carbon.andes.admin.internal.Queue queueDTO =
                         new org.wso2.carbon.andes.admin.internal.Queue();
                 queueDTO.setQueueName(queue.getQueueName());
-                queueDTO.setMessageCount(queue.getMessageCount());
+                queueDTO.setQueueOwningNode(queue.getQueueOwningNode());
+                queueDTO.setPendingMessageCount(queue.getPendingMessageCount());
+                queueDTO.setTotalReceivedMessageCount(queue.getTotalReceivedMessageCount());
+                queueDTO.setTotalAckedMessageCount(queue.getTotalAckedMessageCount());
                 queueDTO.setCreatedTime(queue.getCreatedTime());
                 queueDTO.setUpdatedTime(queue.getUpdatedTime());
                 allQueues.add(queueDTO);
@@ -1307,7 +1309,7 @@ public class AndesAdminService extends AbstractAdmin {
          */
         @Override
         public int compare(Queue queue1, Queue queue2) {
-            long comparedValue = queue1.getMessageCount() - queue2.getMessageCount();
+            long comparedValue = queue1.getPendingMessageCount() - queue2.getPendingMessageCount();
             int returnValue = 0;
             if (comparedValue < 0) {
                 returnValue = -1;

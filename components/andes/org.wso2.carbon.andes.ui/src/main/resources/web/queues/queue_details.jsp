@@ -88,19 +88,27 @@
                               prevKey="prev" nextKey="next"
                               parameters="<%=concatenatedParams%>"/>
             <table class="styledLeft" style="width:100%">
-                <thead>
-                <tr>
-                    <th><fmt:message key="queue.name"/></th>
-                    <th><fmt:message key="queue.messageCount"/></th>
-                    <th><fmt:message key="queue.view"/></th>
-                    <th colspan="2"><fmt:message key="operations"/></th>
-                    <th style="width:40px;"><fmt:message key="queue.operations"/></th>
-                </tr>
-                </thead>
+                    <thead>
+                      <tr>
+                        <th rowspan="2"><fmt:message key="queue.name"/></th>
+                        <th rowspan="2"><fmt:message key="queue.owningNode"/></th>
+                        <th colspan="3"><fmt:message key="queue.msgCount"/></th>
+                        <th rowspan="2"><fmt:message key="queue.view"/></th>
+                        <th rowspan="2" colspan="2"><fmt:message key="operations"/></th>
+                        <th rowspan="2"><fmt:message key="queue.operations"/></th>
+                      </tr>
+                      <tr>
+                        <th><fmt:message key="queue.pendingMessageCount"/></th>
+                        <th><fmt:message key="queue.totalReceivedMsgCount"/></th>
+                        <th><fmt:message key="queue.totalAckedMsgCount"/></th>
+                      </tr>
+                    <thead>
                 <tbody>
                 <%
                     if (filteredQueueList != null) {
                         for (Queue queue : filteredQueueList) {
+                            System.out.println("AAAAAAA totalReceivedMsgCount= " + queue.getTotalReceivedMessageCount()
+                                        + " totalAckedMsgCount = " + queue.getTotalAckedMessageCount());
                             String nameOfQueue = queue.getQueueName();
                             String encodedNameOfQueue = null;
                             try {
@@ -132,10 +140,17 @@
                         </td>
                         <% } %>
 
+                    <%--Owning Node --%>
+                         <td><%=queue.getQueueOwningNode()%></td>
 
-                    <%--Message count--%>
-                        <td><%=queue.getMessageCount()%></td>
+                    <%--Pending Message count--%>
+                        <td><%=queue.getPendingMessageCount()%></td>
 
+                    <%--Total Received Message count--%>
+                        <td><%=queue.getTotalReceivedMessageCount()%></td>
+
+                    <%--Total Acknowledged Message count--%>
+                        <td><%=queue.getTotalAckedMessageCount()%></td>
 
                     <%--Browse--%>
                         <% try {

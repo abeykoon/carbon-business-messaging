@@ -25,9 +25,15 @@ public class Queue {
 
     private String queueName;
 
-    private long queueDepth;
+    private String queueOwningNode;
 
-    private long messageCount;
+    private long pendingMessageCount;
+
+    private long totalReceivedMessageCount;
+
+    private long totalAckedMessageCount;
+
+    private long queueDepth;
 
     private Calendar createdTime;
 
@@ -40,8 +46,11 @@ public class Queue {
 
     public Queue(org.wso2.carbon.andes.core.types.Queue queue){
         this.queueName = queue.getQueueName();
+        this.queueOwningNode = queue.getQueueOwningNode();
+        this.pendingMessageCount = queue.getPendingMessageCount();
+        this.totalReceivedMessageCount = queue.getTotalReceivedMessageCount();
+        this.totalAckedMessageCount = queue.getTotalAckedMessageCount();
         this.queueDepth = queue.getQueueDepth();
-        this.messageCount = queue.getMessageCount();
         this.createdTime = queue.getCreatedTime();
         this.updatedTime = queue.getUpdatedTime();
         this.createdFrom = queue.getCreatedFrom();
@@ -59,6 +68,30 @@ public class Queue {
         this.queueName = queueName;
     }
 
+    public String getQueueOwningNode() {
+        return queueOwningNode;
+    }
+
+    public void setQueueOwningNode(String queueOwningNode) {
+        this.queueOwningNode = queueOwningNode;
+    }
+
+    public long getTotalReceivedMessageCount() {
+        return totalReceivedMessageCount;
+    }
+
+    public void setTotalReceivedMessageCount(long totalReceivedMessageCount) {
+        this.totalReceivedMessageCount = totalReceivedMessageCount;
+    }
+
+    public long getTotalAckedMessageCount() {
+        return totalAckedMessageCount;
+    }
+
+    public void setTotalAckedMessageCount(long totalAckedMessageCount) {
+        this.totalAckedMessageCount = totalAckedMessageCount;
+    }
+
     public long getQueueDepth() {
         return queueDepth;
     }
@@ -67,12 +100,12 @@ public class Queue {
         this.queueDepth = queueDepth;
     }
 
-    public long getMessageCount() {
-        return messageCount;
+    public long getPendingMessageCount() {
+        return pendingMessageCount;
     }
 
-    public void setMessageCount(long messageCount) {
-        this.messageCount = messageCount;
+    public void setPendingMessageCount(long pendingMessageCount) {
+        this.pendingMessageCount = pendingMessageCount;
     }
 
     public Calendar getCreatedTime() {

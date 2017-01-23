@@ -146,7 +146,7 @@ public class QueueManagerServiceImpl implements QueueManagerService {
 
             // create a queue with the message count
             org.wso2.carbon.andes.core.types.Queue queue = new org.wso2.carbon.andes.core.types.Queue(queueName);
-            queue.setMessageCount(QueueManagementBeans.getInstance().getMessageCount(queueName, "queue"));
+            queue.setPendingMessageCount(QueueManagementBeans.getInstance().getPendingMessageCount(queueName, "queue"));
 
             //show queue only if it belongs to the current tenant domain of user
             if (Utils.isQueueInDomain(queue.getQueueName())) {
@@ -179,7 +179,7 @@ public class QueueManagerServiceImpl implements QueueManagerService {
     @Override
     public List<org.wso2.carbon.andes.core.types.Queue> getAllQueues() throws QueueManagerException {
         UserRealm userRealm;
-        List<org.wso2.carbon.andes.core.types.Queue> allQueues = QueueManagementBeans.getInstance().getAllQueueCounts();
+        List<org.wso2.carbon.andes.core.types.Queue> allQueues = QueueManagementBeans.getInstance().getAllQueueInformation();
         //show queues belonging to current domain
         return Utils.filterDomainSpecificQueues(allQueues);
     }
@@ -309,7 +309,7 @@ public class QueueManagerServiceImpl implements QueueManagerService {
     public long getMessageCount(String destinationName, String msgPattern)
             throws QueueManagerException {
         long messageCount;
-        messageCount = QueueManagementBeans.getInstance().getMessageCount(destinationName, msgPattern);
+        messageCount = QueueManagementBeans.getInstance().getPendingMessageCount(destinationName, msgPattern);
         return messageCount;
     }
 
@@ -489,7 +489,7 @@ public class QueueManagerServiceImpl implements QueueManagerService {
      */
     @Override
     public long getTotalMessagesInQueue(String nameOfQueue) throws QueueManagerException {
-        return QueueManagementBeans.getInstance().getMessageCount(nameOfQueue, "queue");
+        return QueueManagementBeans.getInstance().getPendingMessageCount(nameOfQueue, "queue");
     }
 
     /**

@@ -109,31 +109,44 @@ public class QueueManagementBeans {
     }
 
     /**
-     * Invoke service bean to get the message count of each queue stored
+     *
+     * @return
+     * @throws QueueManagerException
      */
-    public List<Queue> getAllQueueCounts() throws QueueManagerException {
+    public List<Queue> getAllQueueInformation() throws QueueManagerException {
         List<Queue> queueList = new ArrayList<>();
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
         try {
+
             ObjectName objectName =
                     new ObjectName("org.wso2.andes:type=QueueManagementInformation,name=QueueManagementInformation");
-            Object result = mBeanServer.getAttribute(objectName, QueueManagementConstants.QUEUES_COUNT_MBEAN_ATTRIBUTE);
+            Object result = mBeanServer.getAttribute(objectName,
+                    QueueManagementConstants.QUEUE_INFORMATION_MBEAN_ATTRIBUTE);
             if (result != null) {
-                Map<String, Integer> queueCountMap = (Map<String, Integer>) result;
-                for (Map.Entry<String, Integer> entry : queueCountMap.entrySet()) {
+                CompositeData[] queueInformationList = (CompositeData[]) result;
+                for (CompositeData queueData : queueInformationList) {
                     Queue queue = new Queue();
-                    queue.setQueueName(entry.getKey());
-                    queue.setMessageCount(entry.getValue());
+                    queue.setQueueName((String) queueData.get(QueueManagementInformation.QUEUE_NAME));
+                    queue.setQueueOwningNode((String) queueData.get(QueueManagementInformation.QUEUE_MASTER_NODE));
+                    queue.setPendingMessageCount((int) queueData.get(QueueManagementInformation
+                            .REMAINING_MESSAGE_COUNT));
+                    queue.setTotalReceivedMessageCount((long)queueData.get(QueueManagementInformation
+                            .TOTAL_RECEIVED_MESSAGE_COUNT));
+                    queue.setTotalAckedMessageCount((long)queueData.get(QueueManagementInformation
+                            .TOTAL_ACKED_Message_COUNT));
                     queueList.add(queue);
                 }
             }
         } catch (MalformedObjectNameException | ReflectionException | MBeanException | InstanceNotFoundException e) {
             throw new QueueManagerException("Cannot access mBean operations for message counts:", e);
         } catch (AttributeNotFoundException e) {
-            throw new QueueManagerException("Incompatible attributes for operation to retrieve all queues", e);
+            throw new QueueManagerException("Cannot access mBean operations for message counts. Attribute not found"
+                    + QueueManagementConstants.QUEUE_INFORMATION_MBEAN_ATTRIBUTE, e);
         }
         return queueList;
     }
+
+
 
 
     /**
@@ -165,7 +178,7 @@ public class QueueManagementBeans {
                 for (Map.Entry<String, Long> entry : queueCountMap.entrySet()) {
                     Queue queue = new Queue();
                     queue.setQueueName(entry.getKey());
-                    queue.setMessageCount(entry.getValue());
+                    queue.setPendingMessageCount(entry.getValue());
                     DLCQueue =  queue;
                 }
             }
@@ -177,21 +190,21 @@ public class QueueManagementBeans {
     }
 
     /**
-     * Invoke service bean to get the message count for a destination.
+     * Invoke service bean to get the pending message count for a queue.
      *
      * @param queueName  The destination name.
      * @param msgPattern The value can be either "queue" or "topic".
      * @return The number of messages.
      * @throws QueueManagerException
      */
-    public long getMessageCount(String queueName, String msgPattern) throws QueueManagerException {
+    public long getPendingMessageCount(String queueName, String msgPattern) throws QueueManagerException {
         long messageCount = 0;
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
         try {
             ObjectName objectName =
                     new ObjectName("org.wso2.andes:type=QueueManagementInformation,name=QueueManagementInformation");
 
-            String operationName = "getMessageCount";
+            String operationName = "getPendingMessageCount";
             Object[] parameters = new Object[]{queueName, msgPattern};
             String[] signature = new String[]{String.class.getName(), String.class.getName()};
             Object result = mBeanServer.invoke(
