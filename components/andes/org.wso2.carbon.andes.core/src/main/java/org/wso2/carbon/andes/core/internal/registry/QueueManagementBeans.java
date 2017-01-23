@@ -204,7 +204,7 @@ public class QueueManagementBeans {
             ObjectName objectName =
                     new ObjectName("org.wso2.andes:type=QueueManagementInformation,name=QueueManagementInformation");
 
-            String operationName = "getPendingMessageCount";
+            String operationName = "getMessageCount";
             Object[] parameters = new Object[]{queueName, msgPattern};
             String[] signature = new String[]{String.class.getName(), String.class.getName()};
             Object result = mBeanServer.invoke(
