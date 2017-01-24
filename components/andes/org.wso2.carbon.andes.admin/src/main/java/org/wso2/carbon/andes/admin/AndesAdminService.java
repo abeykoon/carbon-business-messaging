@@ -158,7 +158,6 @@ public class AndesAdminService extends AbstractAdmin {
      * @return An array of queues.
      * @throws BrokerManagerAdminException
      */
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     public org.wso2.carbon.andes.admin.internal.Queue[] getAllQueues()
             throws BrokerManagerAdminException {
         List<org.wso2.carbon.andes.admin.internal.Queue> allQueues = new ArrayList<>();

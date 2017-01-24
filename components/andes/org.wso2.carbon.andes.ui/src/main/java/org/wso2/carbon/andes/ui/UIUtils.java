@@ -186,6 +186,9 @@ public class UIUtils {
 
                 queueDetailsArray[queueDetailsIndex].setQueueName(queueDetail.getQueueName());
                 queueDetailsArray[queueDetailsIndex].setPendingMessageCount(queueDetail.getPendingMessageCount());
+                queueDetailsArray[queueDetailsIndex].setQueueOwningNode(queueDetail.getQueueOwningNode());
+                queueDetailsArray[queueDetailsIndex].setTotalReceivedMessageCount(queueDetail.getTotalReceivedMessageCount());
+                queueDetailsArray[queueDetailsIndex].setTotalAckedMessageCount(queueDetail.getTotalAckedMessageCount());
                 queueDetailsIndex++;
                 if (queueDetailsIndex == maxQueueCount) {
                     break;
